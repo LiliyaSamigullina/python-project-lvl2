@@ -49,5 +49,3 @@ def convert_bool_values(value):
     if value in convert_dict:
         return convert_dict[value]
     return value
-
-print(generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file2.json'))

@@ -45,7 +45,9 @@ def convert_to_string(user_dict):
 
 
 def convert_bool_values(value):
-  convert_dict = {True: 'true', False: 'false', None: 'null'}
-  if value in convert_dict:
-    return convert_dict[value]
-  return value
+    convert_dict = {True: 'true', False: 'false', None: 'null'}
+    if value in convert_dict:
+        return convert_dict[value]
+    return value
+
+print(generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file2.json'))

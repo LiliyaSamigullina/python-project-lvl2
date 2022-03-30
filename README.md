@@ -9,4 +9,4 @@
 
 [![asciicast](https://asciinema.org/a/6610YBVnISMqvqhLdNBE7141L.svg)](https://asciinema.org/a/6610YBVnISMqvqhLdNBE7141L)
 
-![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+[![asciicast](https://asciinema.org/a/Y8osiuNCdztx6ogXb6tUKeCF7.svg)](https://asciinema.org/a/Y8osiuNCdztx6ogXb6tUKeCF7)

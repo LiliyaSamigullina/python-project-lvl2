@@ -1,12 +1,11 @@
-import json
+from gendiff.parser import get_dict
 
 
 def generate_diff(file_path1, file_path2):
     result = {}
 
-    with open(file_path1) as file1, open(file_path2) as file2:
-        dict1 = json.load(file1)
-        dict2 = json.load(file2)
+    dict1 = get_dict(file_path1)
+    dict2 = get_dict(file_path2)
 
     keys = sorted(dict1.keys() | dict2.keys())
     for key in keys:

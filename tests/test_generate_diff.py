@@ -1,4 +1,5 @@
 from gendiff import generate_diff
+from gendiff.formatters.stylish import format_stylish
 
 
 with open('tests/fixtures/result_plain') as file:

@@ -9,5 +9,3 @@ def generate_diff(file_path1, file_path2, formatter='stylish'):
     result = get_diff_dict(dict1, dict2)
     if formatter == 'stylish':
         return format_stylish(result)
-
-print(generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file2.json'))

@@ -30,7 +30,9 @@ def get_value(v):
         return convert_dict[v]
     elif isinstance(v, dict):
         return '[complex value]'
-    return "'{}'".format(v)
+    elif isinstance(v, str):
+        return "'{}'".format(v)
+    return v
 
 
 def get_key(k, parent):

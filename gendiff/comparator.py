@@ -8,7 +8,7 @@ def get_diff_dict(dict1, dict2):
             diff_dict[key]['type'] = 'added'
             diff_dict[key]['value'] = dict2[key]
         elif key not in dict2:
-            diff_dict[key]['type'] = 'deleted'
+            diff_dict[key]['type'] = 'removed'
             diff_dict[key]['value'] = dict1[key]
         elif dict1[key] == dict2[key]:
             diff_dict[key]['type'] = 'unchanged'

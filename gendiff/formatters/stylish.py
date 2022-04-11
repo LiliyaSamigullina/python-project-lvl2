@@ -30,12 +30,12 @@ def format_stylish(user_dict, _lvl=0):
     indent = TAB * _lvl
 
     result = []
-    prefix = {'added': '  + ', 'deleted': '  - ', 'unchanged': '    '}
+    prefix = {'added': '  + ', 'removed': '  - ', 'unchanged': '    '}
     for k, v in sorted(user_dict.items()):
         if v['type'] == 'changed':
             line1 = '{}{}{}: {}'.format(
                 indent,
-                prefix['deleted'],
+                prefix['removed'],
                 k,
                 format_value(v['old_value'], _lvl + 1)
             )

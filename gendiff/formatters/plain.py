@@ -1,41 +1,45 @@
+import json
+
+
 def format_plain(user_dict, parent=''):
     result = []
 
-    for k, v in sorted(user_dict.items()):
-        if v['type'] == 'changed':
+    for key, value in sorted(user_dict.items()):
+        if value['type'] == 'changed':
             line = "Property '{}' was updated. From {} to {}".format(
-                get_key(k, parent),
-                get_value(v['old_value']),
-                get_value(v['new_value'])
+                format_key(key, parent),
+                format_value(value['old_value']),
+                format_value(value['new_value'])
             )
             result.append(line)
-        elif v['type'] == 'removed':
-            line = "Property '{}' was removed".format(get_key(k, parent))
+        elif value['type'] == 'removed':
+            line = "Property '{}' was removed".format(format_key(key, parent))
             result.append(line)
-        elif v['type'] == 'added':
+        elif value['type'] == 'added':
             line = "Property '{}' was added with value: {}".format(
-                get_key(k, parent),
-                get_value(v['value'])
+                format_key(key, parent),
+                format_value(value['value'])
             )
             result.append(line)
-        elif v['type'] == 'nested':
-            line = format_plain(v['value'], get_key(k, parent))
+        elif value['type'] == 'nested':
+            line = format_plain(value['value'], format_key(key, parent))
             result.append(line)
     return '\n'.join(result)
 
 
-def get_value(v):
-    convert_dict = {True: 'true', False: 'false', None: 'null'}
-    if isinstance(v, bool) or v is None:
-        return convert_dict[v]
-    elif isinstance(v, dict):
+def format_value(value):
+    # convert_dict = {True: 'true', False: 'false', None: 'null'}
+    if isinstance(value, bool) or value is None:
+        # return convert_dict[value]
+        return json.dumps(value)
+    elif isinstance(value, dict):
         return '[complex value]'
-    elif isinstance(v, str):
-        return "'{}'".format(v)
-    return v
+    elif isinstance(value, str):
+        return "'{}'".format(value)
+    return value
 
 
-def get_key(k, parent):
+def format_key(key, parent):
     if parent:
-        return '{}.{}'.format(parent, k)
-    return str(k)
+        return '{}.{}'.format(parent, key)
+    return str(key)

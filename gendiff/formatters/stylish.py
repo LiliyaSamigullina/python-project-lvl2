@@ -1,25 +1,27 @@
+import json
 TAB = '    '
 
 
 def format_value(value, _lvl):
-    convert_dict = {True: 'true', False: 'false', None: 'null'}
+    # convert_dict = {True: 'true', False: 'false', None: 'null'}
     if isinstance(value, bool) or value is None:
-        return convert_dict[value]
+        # return convert_dict[value]
+        return json.dumps(value)
 
     if isinstance(value, dict):
         result = []
-        for k, v in value.items():
-            if isinstance(v, dict):
+        for internal_key, internal_val in value.items():
+            if isinstance(internal_val, dict):
                 line = '{}{}: {}'.format(
                     (_lvl + 1) * TAB,
-                    k,
-                    format_value(v, _lvl + 1)
+                    internal_key,
+                    format_value(internal_val, _lvl + 1)
                 )
             else:
                 line = '{}{}: {}'.format(
                     (_lvl + 1) * TAB,
-                    k,
-                    format_value(v, _lvl)
+                    internal_key,
+                    format_value(internal_val, _lvl)
                 )
             result.append(line)
         return '{\n' + '\n'.join(result) + '\n' + TAB * _lvl + '}'
@@ -31,34 +33,34 @@ def format_stylish(user_dict, _lvl=0):
 
     result = []
     prefix = {'added': '  + ', 'removed': '  - ', 'unchanged': '    '}
-    for k, v in sorted(user_dict.items()):
-        if v['type'] == 'changed':
+    for key, value in sorted(user_dict.items()):
+        if value['type'] == 'changed':
             line1 = '{}{}{}: {}'.format(
                 indent,
                 prefix['removed'],
-                k,
-                format_value(v['old_value'], _lvl + 1)
+                key,
+                format_value(value['old_value'], _lvl + 1)
             )
             line2 = '{}{}{}: {}'.format(
                 indent,
                 prefix['added'],
-                k,
-                format_value(v['new_value'], _lvl + 1)
+                key,
+                format_value(value['new_value'], _lvl + 1)
             )
             line = '\n'.join([line1, line2])
-        elif v['type'] == 'nested':
+        elif value['type'] == 'nested':
             line1 = '{}{}: '.format(
                 (_lvl + 1) * TAB,
-                k
+                key
             )
-            line2 = format_stylish(v['value'], _lvl + 1)
+            line2 = format_stylish(value['value'], _lvl + 1)
             line = ''.join([line1, line2])
         else:
             line = '{}{}{}: {}'.format(
                 indent,
-                prefix[v['type']],
-                k,
-                format_value(v['value'], _lvl + 1)
+                prefix[value['type']],
+                key,
+                format_value(value['value'], _lvl + 1)
             )
         result.append(line)
     return '{\n' + '\n'.join(result) + '\n' + indent + '}'

@@ -1,7 +1,7 @@
 import json
 
 
-def format_plain(user_dict, parent=''):
+def format_plain(user_dict: dict, parent: str = '') -> str:
     result = []
 
     for key, value in sorted(user_dict.items()):
@@ -28,9 +28,7 @@ def format_plain(user_dict, parent=''):
 
 
 def format_value(value):
-    # convert_dict = {True: 'true', False: 'false', None: 'null'}
     if isinstance(value, bool) or value is None:
-        # return convert_dict[value]
         return json.dumps(value)
     elif isinstance(value, dict):
         return '[complex value]'
@@ -39,7 +37,7 @@ def format_value(value):
     return value
 
 
-def format_key(key, parent):
+def format_key(key: str, parent: str) -> str:
     if parent:
         return '{}.{}'.format(parent, key)
     return str(key)

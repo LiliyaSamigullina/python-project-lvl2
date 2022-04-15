@@ -2,33 +2,7 @@ import json
 TAB = '    '
 
 
-def format_value(value, _lvl):
-    # convert_dict = {True: 'true', False: 'false', None: 'null'}
-    if isinstance(value, bool) or value is None:
-        # return convert_dict[value]
-        return json.dumps(value)
-
-    if isinstance(value, dict):
-        result = []
-        for internal_key, internal_val in value.items():
-            if isinstance(internal_val, dict):
-                line = '{}{}: {}'.format(
-                    (_lvl + 1) * TAB,
-                    internal_key,
-                    format_value(internal_val, _lvl + 1)
-                )
-            else:
-                line = '{}{}: {}'.format(
-                    (_lvl + 1) * TAB,
-                    internal_key,
-                    format_value(internal_val, _lvl)
-                )
-            result.append(line)
-        return '{\n' + '\n'.join(result) + '\n' + TAB * _lvl + '}'
-    return value
-
-
-def format_stylish(user_dict, _lvl=0):
+def format_stylish(user_dict: dict, _lvl=0) -> str:
     indent = TAB * _lvl
 
     result = []
@@ -64,3 +38,27 @@ def format_stylish(user_dict, _lvl=0):
             )
         result.append(line)
     return '{\n' + '\n'.join(result) + '\n' + indent + '}'
+
+
+def format_value(value, _lvl):
+    if isinstance(value, bool) or value is None:
+        return json.dumps(value)
+
+    if isinstance(value, dict):
+        result = []
+        for internal_key, internal_val in value.items():
+            if isinstance(internal_val, dict):
+                line = '{}{}: {}'.format(
+                    (_lvl + 1) * TAB,
+                    internal_key,
+                    format_value(internal_val, _lvl + 1)
+                )
+            else:
+                line = '{}{}: {}'.format(
+                    (_lvl + 1) * TAB,
+                    internal_key,
+                    format_value(internal_val, _lvl)
+                )
+            result.append(line)
+        return '{\n' + '\n'.join(result) + '\n' + TAB * _lvl + '}'
+    return value

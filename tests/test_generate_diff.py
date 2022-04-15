@@ -54,7 +54,7 @@ test_cases = [
     (file1_json, file2_json, 'json', json_nested_result),
     (file1_yaml, file2_yaml, 'json', json_nested_result),
     (file1_yml, file2_yml, 'json', json_nested_result)
-    ]
+]
 
 
 @pytest.mark.parametrize('file1, file2, formatter, result_file', test_cases)

@@ -6,7 +6,7 @@ def format_plain(user_dict: dict, parent: str = '') -> str:
 
     for key, value in sorted(user_dict.items()):
         if value['type'] == 'changed':
-            line = "Property '{}' was updated. From {} to {}".format(
+            line = "Property '{0}' was updated. From {1} to {2}".format(
                 format_key(key, parent),
                 format_value(value['old_value']),
                 format_value(value['new_value'])
@@ -16,7 +16,7 @@ def format_plain(user_dict: dict, parent: str = '') -> str:
             line = "Property '{}' was removed".format(format_key(key, parent))
             result.append(line)
         elif value['type'] == 'added':
-            line = "Property '{}' was added with value: {}".format(
+            line = "Property '{0}' was added with value: {1}".format(
                 format_key(key, parent),
                 format_value(value['value'])
             )
@@ -39,5 +39,5 @@ def format_value(value):
 
 def format_key(key: str, parent: str) -> str:
     if parent:
-        return '{}.{}'.format(parent, key)
+        return '{0}.{1}'.format(parent, key)
     return str(key)

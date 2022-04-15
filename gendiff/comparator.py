@@ -1,4 +1,4 @@
-def get_diff_dict(dict1, dict2):
+def get_diff_dict(dict1: dict, dict2: dict) -> dict:
     diff_dict = {}
 
     keys = dict1.keys() | dict2.keys()

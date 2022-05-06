@@ -1,6 +1,7 @@
 import asyncio
 import os
 import pytest
+import pytest_asyncio
 
 FIXTURES_FOLDER = 'fixtures'
 
@@ -48,7 +49,7 @@ def file2_yml_path():
                         FIXTURES_FOLDER, 'file2.yml')
 
 
-@pytest.fixture(scope='function')
+@pytest_asyncio.fixture(scope='function')
 async def result_render(request):
     assert getattr(request.module, 'FORMATTER', None)
 
